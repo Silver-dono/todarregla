@@ -1,0 +1,32 @@
+<!DOCTYPE HTML>
+<html lang="es">
+<body>
+<div style="text-align: center;">
+  <h1> Todarregla </h1>
+</div>
+
+<div style="text-align: center; margin-bottom: 4em; margin-top: 5em;">
+  <h2>
+    Bienvenido a Todarregla, donde si no está todo en regla, se arregla.
+  </h2>
+  <p>Para abrir una incidencia rellene los datos del formulario:</p>
+</div>
+
+<div style="text-align: center">
+  <form method="post" action="incidencias/open" modelAttribute="request">
+    <p>Correo:</p>
+    <input type="email"  name="correo" required/>
+    <p>Calle:</p>
+    <input type="text"  name="calle" required/>
+    <p>Sector:</p>
+    <select name="idSector" id="idSector">
+      {{#sector}}
+      <option value="{{idSector}}">{{nombre}}</option>
+      {{/sector}}
+    </select>
+    <p><input style="margin-top: 2em;" type='submit' value='Abrir incidencia'/></p>
+  </form>
+</div>
+
+</body>
+</html>

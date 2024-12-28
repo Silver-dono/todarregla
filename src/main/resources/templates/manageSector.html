@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<body>
+
+<div style="text-align: center">
+  <form method="post" action="/admin/sector/delete">
+    <select name="idSector" size="{{total}}" multiple="multiple">
+      {{#sector}}
+        <option value="{{idSector}}">{{nombre}}</option>
+      {{/sector}}
+    </select>
+    <p><input style="margin-top: 2em;" type='submit' value='Borrar sector'/></p>
+  </form>
+</div>
+
+<br>
+<br>
+<br>
+
+
+<div style="text-align: center">
+  <form method="get" action="/admin">
+    <input style="margin-top: 2em;" type="submit" value="Volver" >
+  </form>
+</div>
+
+</body>
+</html>

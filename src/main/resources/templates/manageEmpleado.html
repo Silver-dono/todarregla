@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<body>
+
+<div style="text-align: center">
+  <form method="get" action="/admin/empleado/edit">
+    <select name="idEmpleado" size="{{total}}" multiple="multiple">
+      {{#empleado}}
+        <option value="{{idEmpleado}}">{{nombre}}</option>
+      {{/empleado}}
+    </select>
+    <p><input style="margin-top: 2em;" type='submit' value='Editar empleado'/></p>
+  </form>
+</div>
+
+<br>
+<br>
+<br>
+
+
+<div style="text-align: center">
+  <form method="get" action="/admin/empleado/create">
+    <input type="submit" value="Crear Empleado">
+  </form>
+  <form method="get" action="/admin">
+    <input style="margin-top: 2em;" type="submit" value="Volver" >
+  </form>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<style>
+  table, th, td {
+    border: 1px solid;
+    margin-left: auto;
+    margin-right: auto;
+  }
+</style>
+<body>
+
+
+<div style="text-align: center">
+  <form method="post" action="/admin/empleado/update" modelAttribute="request">
+    {{#empleado}}
+
+    <input type="text" name="idEmpleado" hidden="hidden" value="{{idEmpleado}}">
+
+    <p>Nombre:</p>
+    <input type="text"  name="nombre" required value="{{nombre}}" />
+    <br>
+    <input type="checkbox" name="activo" value="true"
+           {{#activo}} checked="checked"
+           {{/activo}} >
+    <br>
+    <!-- If Empleado has Sector as null, the select list will show the first Sector found in database -->
+    <select name='idSector' id="idSector">
+      {{#sectores}}
+          <option value="{{idSector}}">
+            {{nombre}}
+          </option>
+      {{/sectores}}
+    </select>
+
+    <table id="horarios_table">
+    </table>
+    {{/empleado}}
+    <br>
+    <p><input style="margin-top: 2em;" type='submit' value='Editar empleado'/></p>
+  </form>
+  <form method="get" action="/admin">
+    <input style="margin-top: 2em;" type="submit" value="Volver" >
+  </form>
+</div>
+
+<script type="text/javascript">
+  function generateHorarioTable(horariosArray){
+    const table = document.getElementById("horarios_table");
+    var horariosStrings = ["00:00 - 02:00","02:00 - 04:00","04:00 - 06:00",
+      "06:00 - 08:00","08:00 - 10:00","10:00 - 12:00","12:00 - 14:00","14:00 - 16:00",
+      "16:00 - 18:00","18:00 - 20:00","20:00 - 22:00","22:00 - 24:00"];
+    for (let i = 0; i < 12; i++) {
+      let rowNumber = i - 4;
+      if(rowNumber < 0){
+        rowNumber = 0;
+      } else if(rowNumber < 4){
+        rowNumber = 1;
+      } else {
+        rowNumber = 2;
+      }
+      if(table.rows.length === rowNumber){
+        table.insertRow(rowNumber);
+      }
+
+      const row = table.rows[rowNumber];
+      const cell = row.insertCell(i % 4);
+
+      var input = document.createElement("input");
+      input.setAttribute("type", "checkbox");
+      input.setAttribute("id", i.toString());
+      input.setAttribute("name", "idHorarios");
+      input.setAttribute("value", i.toString());
+
+      var p = document.createElement("p");
+      p.textContent = horariosStrings[i];
+
+      cell.appendChild(p);
+
+      if(horariosArray.includes(i)){
+        input.setAttribute("checked", "checked");
+      }
+
+      cell.appendChild(input);
+
+    }
+  }
+
+  generateHorarioTable({{empleado.horarios}})
+
+</script>
+
+</body>
+</html>
