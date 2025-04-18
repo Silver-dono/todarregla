@@ -23,7 +23,7 @@ public class IncidenciaCronJob {
         List<Incidencia> incidencias = incidenciaDAO.getIncidenciasByCompletada(false);
         List<Long> idIncidencias = new ArrayList<>();
         for(Incidencia incidencia : incidencias){
-            if(incidencia.getFecha().before(Date.from(Instant.now()))){
+            if(incidencia.getFecha() != null && incidencia.getFecha().before(Date.from(Instant.now()))){
                 idIncidencias.add(incidencia.getIdIncidencia());
             }
         }
