@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<body>
+
+<div style="text-align: center">
+  <form method="post" action="/admin/incidencia/close">
+    <select name="idIncidencia" size="{{total}}" multiple="multiple">
+      {{#incidencia}}
+      <option value="{{idIncidencia}}">#{{idIncidencia}}, {{calle}}, {{empleado.nombre}}, {{sector.nombre}}</option>
+      {{/incidencia}}
+    </select>
+    <p><input style="margin-top: 2em;" type='submit' value='Cerrar incidencia'/></p>
+  </form>
+</div>
+
+<br>
+<br>
+<br>
+
+
+<div style="text-align: center">
+  <form method="get" action="/admin">
+    <input style="margin-top: 2em;" type="submit" value="Volver" >
+  </form>
+</div>
+
+</body>
+</html>

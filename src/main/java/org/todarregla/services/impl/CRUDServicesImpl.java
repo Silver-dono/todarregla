@@ -6,12 +6,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.todarregla.cache.HorarioCache;
 import org.todarregla.cache.SectorCache;
-import org.todarregla.model.Empleado;
-import org.todarregla.model.Horario;
-import org.todarregla.model.HorariosEmpleados;
-import org.todarregla.model.Sector;
+import org.todarregla.model.*;
 import org.todarregla.repositories.EmpleadoDAO;
 import org.todarregla.repositories.HorariosEmpleadosDAO;
+import org.todarregla.repositories.IncidenciaDAO;
 import org.todarregla.services.CRUDServices;
 import org.todarregla.services.request.UpdateEmpleadoRequest;
 
@@ -22,8 +20,6 @@ import java.util.stream.Collectors;
 
 @Controller
 public class CRUDServicesImpl implements CRUDServices {
-
-    //TODO: Add CRUD to delete/finish Incidencias
 
     @Autowired
     private SectorCache sectorCache;
@@ -36,6 +32,9 @@ public class CRUDServicesImpl implements CRUDServices {
 
     @Autowired
     private HorarioCache horarioCache;
+
+    @Autowired
+    private IncidenciaDAO incidenciaDAO;
 
     @Override
     public String adminPage() {
@@ -121,6 +120,20 @@ public class CRUDServicesImpl implements CRUDServices {
             horariosEmpleadosDAO.save(horariosEmpleados);
         }
 
+    }
+
+    @Override
+    public String manageIncidencia(Model model) {
+        List<Incidencia> incidencias = incidenciaDAO.getIncidenciasByCompletada(false);
+        model.addAttribute("total", CollectionUtils.size(incidencias));
+        model.addAttribute("incidencia", incidencias);
+        return "manageIncidencia";
+    }
+
+    @Override
+    public String closeIncidencia(Long idIncidencia, Model model) {
+        incidenciaDAO.updateCompletadaField(idIncidencia);
+        return manageIncidencia(model);
     }
 
     //Wrapper class to handle properly editEmpleado template

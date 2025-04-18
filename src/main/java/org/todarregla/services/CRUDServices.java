@@ -1,7 +1,6 @@
 package org.todarregla.services;
 
 import org.springframework.data.repository.NoRepositoryBean;
-import org.springframework.http.ResponseEntity;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -36,4 +35,10 @@ public interface CRUDServices {
 
     @PostMapping("empleado/update")
     public String updateEmpleado(@ModelAttribute("request")UpdateEmpleadoRequest updateEmpleadoRequest, Model model);
+
+    @GetMapping("incidencia/manage")
+    public String manageIncidencia(Model model);
+
+    @PostMapping("incidencia/close")
+    public String closeIncidencia(Long idIncidencia, Model model);
 }

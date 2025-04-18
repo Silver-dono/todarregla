@@ -9,7 +9,6 @@ import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Component;
 import org.todarregla.enums.HorarioEnum;
 import org.todarregla.model.Empleado;
-import org.todarregla.model.Horario;
 import org.todarregla.model.Incidencia;
 import org.todarregla.repositories.EmpleadoDAO;
 import org.todarregla.repositories.HorariosEmpleadosDAO;
@@ -17,26 +16,20 @@ import org.todarregla.repositories.IncidenciaDAO;
 import org.todarregla.utils.DateUtils;
 import org.todarregla.utils.MailUtils;
 
-import javax.annotation.PostConstruct;
 import javax.mail.*;
-import javax.mail.event.MessageCountAdapter;
-import javax.mail.event.MessageCountEvent;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeMultipart;
 import java.io.IOException;
 import java.sql.Time;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 @Component
 @PropertySource(value = "classpath:mail.properties")
 public class MailHandler {
-
-    //TODO: Add cron job to clean Incidencias database
 
     private final Store store;
     private final Transport transport;
@@ -46,7 +39,8 @@ public class MailHandler {
     private final String username;
     private final String password;
 
-    public boolean intialized = false;
+    //Used in scheduled method
+    public boolean initialized = false;
 
     @Autowired
     private IncidenciaDAO incidenciaDAO;
@@ -96,7 +90,7 @@ public class MailHandler {
             throw new RuntimeException(e);
         }
 
-        intialized = true;
+        initialized = true;
 
     }
 
@@ -109,14 +103,14 @@ public class MailHandler {
                     handleNotAnsweredMail(message);
                 }
             }
-        } catch (MessagingException | IOException e){
+        } catch (MessagingException | IOException | ParseException e){
             throw new RuntimeException(e);
         }
     }
 
 
 
-    private void handleNotAnsweredMail(Message mail) throws MessagingException, IOException {
+    private void handleNotAnsweredMail(Message mail) throws MessagingException, IOException, ParseException {
         String subject = mail.getSubject();
         String incidenciaId = subject.replaceAll("[^0-9]", "");
 
@@ -133,7 +127,7 @@ public class MailHandler {
             if(!incidencia.getConfirmada()){
                 String mailBody = getMailBody(mail);
 
-                Date messageDate = MailMessageExtractor.extractDateFromMessage(mailBody);
+               Date messageDate = MailMessageExtractor.extractDateFromMessage(mailBody);
 
                 List<Incidencia> incidenciasDates = incidenciaDAO.getIncidenciasDatesBySectorAndConfirmadaAndCompletada(incidencia.getSector(), false, true);
 
@@ -191,14 +185,19 @@ public class MailHandler {
 
 
     private String getMailBody(Message mail) throws MessagingException, IOException {
+        String mailBody = "";
         if (mail.isMimeType("text/plain")) {
-            return mail.getContent().toString();
+            mailBody = mail.getContent().toString();
         }
         if (mail.isMimeType("multipart/*")) {
             MimeMultipart mimeMultipart = (MimeMultipart) mail.getContent();
-            return getTextFromMimeMultipart(mimeMultipart);
+            mailBody = getTextFromMimeMultipart(mimeMultipart);
         }
-        return "";
+        //Strip mailBody from all previous response messages at use just the last
+        if(StringUtils.contains(mailBody, username)){
+            mailBody = StringUtils.substringBefore(mailBody, "\r\n\r\n");
+        }
+        return mailBody;
     }
 
     private String getTextFromMimeMultipart(

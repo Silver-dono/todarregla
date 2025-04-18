@@ -1,8 +1,9 @@
-package org.todarregla.mail;
+package org.todarregla.schedulers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
+import org.todarregla.mail.MailHandler;
 
 @Component
 public class MailCronJob {
@@ -12,7 +13,7 @@ public class MailCronJob {
 
     @Scheduled(cron = "*/10 * * * * *")
     public void checkMail(){
-        if(mailHandler.intialized){
+        if(mailHandler.initialized){
             mailHandler.readInboxAndHandle();
         }
     }

@@ -1,7 +1,6 @@
 package org.todarregla.utils;
 
 import org.apache.commons.collections4.CollectionUtils;
-import org.todarregla.enums.DatesRegexEnum;
 import org.todarregla.model.HorariosEmpleados;
 import org.todarregla.model.Incidencia;
 
@@ -54,7 +53,6 @@ public class MailUtils {
         StringBuilder stringBuilder = new StringBuilder();
 
         List<Date> horaInicialCitasDisponibles = new ArrayList<>();
-
 
         for(HorariosEmpleados horariosEmpleados : horarios){
             List<Date> incidencias = new ArrayList<>();
@@ -109,19 +107,6 @@ public class MailUtils {
         }
 
         return stringBuilder.toString();
-    }
-
-    public static synchronized Pattern[] getDatePattern(){
-        if(datePatterns == null){
-            datePatterns = new Pattern[DatesRegexEnum.values().length];
-            int i = 0;
-            for(DatesRegexEnum datesRegex : DatesRegexEnum.values()){
-                datePatterns[i] = Pattern.compile(datesRegex.getPattern());
-                i++;
-            }
-            return datePatterns;
-        }
-        return datePatterns;
     }
 
 }
