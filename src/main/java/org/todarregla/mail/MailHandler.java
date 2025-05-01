@@ -134,7 +134,7 @@ public class MailHandler {
                 List<Empleado> busyEmpleados = new ArrayList<>();
 
                 if(incidenciasDates != null){
-                    busyEmpleados = incidenciasDates.stream().filter(i -> i.getFecha().equals(messageDate)).map(Incidencia::getEmpleado).collect(Collectors.toList());
+                    busyEmpleados = incidenciasDates.stream().filter(i -> i.getFecha().compareTo(messageDate) == 0).map(Incidencia::getEmpleado).distinct().collect(Collectors.toList());
                 }
 
                 SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm:ss");
@@ -178,6 +178,16 @@ public class MailHandler {
         MimeMessage mimeMessage = new MimeMessage(session);
         mimeMessage.addRecipients(Message.RecipientType.TO, mail);
         mimeMessage.setSubject(String.valueOf(idIncidencia));
+        mimeMessage.setText(message);
+
+        transport.sendMessage(mimeMessage, mimeMessage.getAllRecipients());
+    }
+
+    public void sendClosedIncidenciaMail(Incidencia incidencia) throws MessagingException{
+        String message = MailUtils.closeIncidenciaMessage(incidencia.getIdIncidencia(), incidencia.getFecha());
+        MimeMessage mimeMessage = new MimeMessage(session);
+        mimeMessage.addRecipients(Message.RecipientType.TO, incidencia.getCorreo());
+        mimeMessage.setSubject(incidencia.getIdIncidencia() + " COMPLETADA");
         mimeMessage.setText(message);
 
         transport.sendMessage(mimeMessage, mimeMessage.getAllRecipients());

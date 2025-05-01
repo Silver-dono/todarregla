@@ -44,9 +44,16 @@ public class MailUtils {
                 "Gracias.";
     }
 
-    public static String confirmatedIncidenciaMessage(Date date, Long incidenciaId){
-        return "Se ha confirmado la cita para la incidencia #" + incidenciaId + " para la fecha: " + new SimpleDateFormat("dd MMMM yyyy HH:mm:ss").format(date) + ".\n" +
+    public static String confirmatedIncidenciaMessage(Date date, Long idIncidencia){
+        return "Se ha confirmado la cita para la incidencia #" + idIncidencia + " para la fecha: " + new SimpleDateFormat("dd MMMM yyyy HH:mm:ss").format(date) + ".\n" +
                 "Gracias.";
+    }
+
+    public static String closeIncidenciaMessage(Long idIncidencia, Date date){
+        return "Saludos.\n" +
+                "\n" +
+                "Se le comunica que la incidencia: #" + idIncidencia + ((date != null) ? ". Con fecha: " + new SimpleDateFormat("dd MMMM yyyy HH:mm:ss").format(date) + ".\n" : "") +
+                "Ha sido completada";
     }
 
     public static String parseHorarios(List<HorariosEmpleados> horarios, Map<Long, List<Incidencia>> incidenciasMap){

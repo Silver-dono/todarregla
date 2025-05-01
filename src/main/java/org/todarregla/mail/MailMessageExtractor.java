@@ -7,7 +7,6 @@ import com.openai.models.responses.Response;
 import com.openai.models.responses.ResponseCreateParams;
 import com.openai.models.responses.ResponseOutputItem;
 import com.openai.models.responses.ResponseOutputMessage;
-
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.Instant;
@@ -40,7 +39,6 @@ public class MailMessageExtractor {
                 if(message != null){
                     //We assume we always get a response message
                     String date = message.content().get(0).outputText().get().text();
-                    System.out.println(date);
                     return new SimpleDateFormat(DATE_FORMAT).parse(date);
                 }
             }
@@ -57,6 +55,5 @@ public class MailMessageExtractor {
                 " El texto: \n" +
                 mailBody;
     }
-
 
 }
