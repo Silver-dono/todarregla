@@ -44,6 +44,9 @@ public class IncidenciaServicesImpl implements IncidenciaServices {
             Incidencia incidencia = new Incidencia();
             incidencia.setCorreo(openIncidenciaRequest.getCorreo());
             incidencia.setCalle(openIncidenciaRequest.getCalle());
+            incidencia.setNombreCliente(openIncidenciaRequest.getNombre());
+            incidencia.setDescripcion(openIncidenciaRequest.getDescripcion());
+            incidencia.setTelefono(openIncidenciaRequest.getTelefono());
             incidencia.setSector(sector);
 
             incidencia = incidenciaDAO.save(incidencia);
