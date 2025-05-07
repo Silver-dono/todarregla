@@ -52,7 +52,7 @@ public class MailHandler {
     private EmpleadoDAO empleadoDAO;
 
 
-    public MailHandler(@Value("${mail.username}") String user, @Value("${mail.password}") String pass) {
+    public MailHandler(@Value("${mail.username}") String user, @Value("${mail_password}") String pass) {
 
         this.username = user;
         this.password = pass;

@@ -49,7 +49,7 @@ public class AppConfiguration {
         dataSource.setDriverClassName("org.postgresql.Driver");
         dataSource.setUrl(environment.getProperty("spring.datasource.url"));
         dataSource.setUsername("postgres");
-        dataSource.setPassword(".todarreglapass1.");
+        dataSource.setPassword(environment.getProperty("database_password"));
         return dataSource;
     }
 
