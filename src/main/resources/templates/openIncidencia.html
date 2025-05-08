@@ -14,9 +14,13 @@
 
 <div style="text-align: center">
   <form method="post" action="incidencias/open" modelAttribute="request">
+    <p>Nombre:</p>
+    <input type="text"  name="nombre" required/>
     <p>Correo:</p>
     <input type="email"  name="correo" required/>
-    <p>Calle:</p>
+    <p>Telefono:</p>
+    <input type="tel"  name="telefono" required/>
+    <p>Direccion:</p>
     <input type="text"  name="calle" required/>
     <p>Sector:</p>
     <select name="idSector" id="idSector">
@@ -24,6 +28,8 @@
       <option value="{{idSector}}">{{nombre}}</option>
       {{/sector}}
     </select>
+    <p>Descripcion del problema:</p>
+    <textarea rows="4" cols="50" name="descripcion"></textarea>
     <p><input style="margin-top: 2em;" type='submit' value='Abrir incidencia'/></p>
   </form>
 </div>

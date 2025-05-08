@@ -19,11 +19,20 @@ public class Incidencia {
     @Column(name = "correo", nullable = false)
     private String correo;
 
+     @Column(name = "nombre_cliente")
+    private String nombreCliente;
+
     @Column(name = "fecha")
     private Date fecha;
 
     @Column(name = "calle")
     private String calle;
+
+    @Column(name = "descripcion")
+    private String descripcion;
+
+    @Column(name = "telefono")
+    private String telefono;
 
     @Column(name = "confirmada")
     private Boolean confirmada = false;
@@ -44,11 +53,13 @@ public class Incidencia {
     public Incidencia() {
     }
 
-    public Incidencia(Long idIncidencia, String correo, Date fecha, String calle, Boolean confirmada, Boolean completada, Empleado empleado, Sector sector) {
+    public Incidencia(Long idIncidencia, String correo, String nombreCliente, Date fecha, String calle, String descripcion, Boolean confirmada, Boolean completada, Empleado empleado, Sector sector) {
         this.idIncidencia = idIncidencia;
         this.correo = correo;
+        this.nombreCliente = nombreCliente;
         this.fecha = fecha;
         this.calle = calle;
+        this.descripcion = descripcion;
         this.confirmada = confirmada;
         this.completada = completada;
         this.empleado = empleado;
@@ -71,6 +82,14 @@ public class Incidencia {
         this.correo = correo;
     }
 
+    public String getNombreCliente() {
+        return nombreCliente;
+    }
+
+    public void setNombreCliente(String nombreCliente) {
+        this.nombreCliente = nombreCliente;
+    }
+
     public Date getFecha() {
         return fecha;
     }
@@ -85,6 +104,22 @@ public class Incidencia {
 
     public void setCalle(String calle) {
         this.calle = calle;
+    }
+
+    public String getDescripcion() {
+        return descripcion;
+    }
+
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
+    }
+
+    public String getTelefono() {
+        return telefono;
+    }
+
+    public void setTelefono(String telefono) {
+        this.telefono = telefono;
     }
 
     public Boolean getConfirmada() {
