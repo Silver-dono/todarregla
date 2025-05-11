@@ -11,8 +11,6 @@ import java.util.stream.Collectors;
 
 public class MailUtils {
 
-    public static final long MILIS_PER_HOUR = 7200000L;
-
     private static Pattern[] datePatterns = null;
 
     public static String openIncidenciaMessage(){
@@ -106,10 +104,9 @@ public class MailUtils {
 
         for(Date fecha : horaInicialCitasDisponibles){
             stringBuilder.append(dateFormatDay.format(fecha))
-                    .append(" from ")
+                    .append(" a las ")
                     .append(dateFormatHour.format(fecha))
-                    .append(" to ")
-                    .append(dateFormatHour.format(new Date(fecha.getTime() + MILIS_PER_HOUR)))
+                    .append(" horas")
                     .append("\n");
         }
 
