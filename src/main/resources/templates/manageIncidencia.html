@@ -9,7 +9,7 @@
   <form method="post" action="/admin/incidencia/close">
     <select name="idIncidencia" size="{{total}}" multiple="multiple">
       {{#incidencia}}
-      <option value="{{idIncidencia}}">#{{idIncidencia}}, {{calle}}, {{empleado.nombre}}, {{sector.nombre}}</option>
+      <option value="{{idIncidencia}}">#{{idIncidencia}}, {{calle}}, {{#empleado}} {{empleado.nombre}},{{/empleado}} {{sector.nombre}}</option>
       {{/incidencia}}
     </select>
     <p><input style="margin-top: 2em;" type='submit' value='Cerrar incidencia'/></p>
