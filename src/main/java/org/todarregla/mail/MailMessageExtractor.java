@@ -23,7 +23,7 @@ public class MailMessageExtractor {
     private final static String DATE_FORMAT_NO_TIME = "yyyy-MM-dd";
 
     static {
-        String openAIKey = System.getenv("OPENAI_API_KEY");
+        String openAIKey = System.getProperty("OPENAI_API_KEY");
         if(StringUtils.isBlank(openAIKey)){
             openAIClient = OpenAIOkHttpClient.fromEnv();
         } else {
