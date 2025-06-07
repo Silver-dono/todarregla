@@ -1,15 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <link rel="stylesheet" href="css/formStyles.css" />
+  <link rel="stylesheet" href="../../css/formStyles.css" />
 </head>
-<style>
-  table, th, td {
-    border: 1px solid;
-    margin-left: auto;
-    margin-right: auto;
-  }
-</style>
 <body>
 
 <div style="text-align: center">
@@ -18,7 +11,8 @@
     <p>Nombre:</p>
     <input type="text"  name="nombre" required />
     <br>
-    <input type="checkbox" name="activo" value="true">
+    <div>Activo:
+    <input type="checkbox" name="activo" value="true"></div>
     <br>
     <select name='idSector' id="idSector">
       {{#sector}}
@@ -28,7 +22,7 @@
       {{/sector}}
     </select>
 
-    <table id="horarios_table">
+    <table id="horarios_table" class="table-container">
     </table>
     <br>
     <p><input style="margin-top: 2em;" type='submit' value='Crear empleado'/></p>
@@ -63,6 +57,7 @@
 
       var input = document.createElement("input");
       input.setAttribute("type", "checkbox");
+      input.setAttribute("class", "checkbox-cell");
       input.setAttribute("id", i.toString());
       input.setAttribute("name", "idHorarios");
       input.setAttribute("value", i.toString());

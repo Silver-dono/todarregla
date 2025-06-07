@@ -27,6 +27,12 @@ public class HorarioCache {
         }
     }
 
+    public synchronized void reload(){
+        List<Horario> horariosDDBB = horarioDAO.findAll();
+        cache.clear();
+        cache.addAll(horariosDDBB);
+    }
+
     public Horario findById(Long id){
         if(CollectionUtils.isEmpty(cache)){
             load();
