@@ -16,8 +16,8 @@
   <p>Para abrir una incidencia rellene los datos del formulario:</p>
 </div>
 
-<div style="text-align: center">
-  <form method="post" action="incidencias/open" modelAttribute="request">
+<div style="text-align: center; position: relative">
+  <form id="form" modelAttribute="request">
     <p>Nombre:</p>
     <input type="text"  name="nombre" required/>
     <p>Correo:</p>
@@ -34,9 +34,32 @@
     </select>
     <p>Descripcion del problema:</p>
     <textarea rows="4" cols="50" name="descripcion"></textarea>
-    <p><input style="margin-top: 2em;" type='submit' value='Abrir incidencia'/></p>
+    <button style="margin-top: 2em;" type='submit'>Abrir incidencia</button>
+
+    <div id="popup" class="popup">Incidencia registrada en el sistema</div>
   </form>
 </div>
+
+
+
+<script>
+  const form = document.getElementById('form');
+  const popup = document.getElementById('popup');
+
+  form.addEventListener('submit', async  function(e) {
+    e.preventDefault();
+
+    const data = new FormData(form);
+    const response = await fetch('/incidencias/open', {
+      method: 'POST',
+      body: data
+    });
+
+
+    popup.classList.add('show');
+    setTimeout(() => popup.classList.remove('show'), 3000);
+  });
+</script>
 
 </body>
 </html>
