@@ -27,6 +27,12 @@ public class SectorCache {
         }
     }
 
+    public synchronized void reload(){
+        List<Sector> sectoresBBDD = sectorDAO.findAll();
+        cache.clear();
+        cache.addAll(sectoresBBDD);
+    }
+
     public List<Sector> findAll(){
         if(CollectionUtils.isEmpty(cache)){
             load();

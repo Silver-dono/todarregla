@@ -1,15 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <link rel="stylesheet" href="css/formStyles.css" />
+  <link rel="stylesheet" href="../../css/formStyles.css" />
 </head>
-<style>
-  table, th, td {
-    border: 1px solid;
-    margin-left: auto;
-    margin-right: auto;
-  }
-</style>
 <body>
 
 
@@ -22,9 +15,10 @@
     <p>Nombre:</p>
     <input type="text"  name="nombre" required value="{{nombre}}" />
     <br>
+    <p>Activo:
     <input type="checkbox" name="activo" value="true"
            {{#activo}} checked="checked"
-           {{/activo}} >
+           {{/activo}} ></p>
     <br>
     <!-- If Empleado has Sector as null, the select list will show the first Sector found in database -->
     <select name='idSector' id="idSector">
@@ -35,7 +29,7 @@
       {{/sectores}}
     </select>
 
-    <table id="horarios_table">
+    <table id="horarios_table" class="table-container">
     </table>
     {{/empleado}}
     <br>
@@ -70,6 +64,7 @@
 
       var input = document.createElement("input");
       input.setAttribute("type", "checkbox");
+      input.setAttribute("class", "checkbox-cell");
       input.setAttribute("id", i.toString());
       input.setAttribute("name", "idHorarios");
       input.setAttribute("value", i.toString());

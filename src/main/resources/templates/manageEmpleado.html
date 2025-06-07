@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <link rel="stylesheet" href="css/formStyles.css"/>
+  <link rel="stylesheet" href="../../css/formStyles.css"/>
 </head>
 
 <body>
@@ -10,7 +10,7 @@
   <form method="get" action="/admin/empleado/edit">
     <select name="idEmpleado" size="{{total}}" multiple="multiple">
       {{#empleado}}
-        <option value="{{idEmpleado}}">{{nombre}}</option>
+        <option value="{{idEmpleado}}">{{nombre}}, {{sector.nombre}}</option>
       {{/empleado}}
     </select>
     <p><input style="margin-top: 2em;" type='submit' value='Editar empleado'/></p>

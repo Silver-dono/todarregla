@@ -1,5 +1,6 @@
 package org.todarregla.configuration;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -47,7 +48,11 @@ public class AppConfiguration {
     public DataSource dataSource() {
         DriverManagerDataSource dataSource = new DriverManagerDataSource();
         dataSource.setDriverClassName("org.postgresql.Driver");
-        dataSource.setUrl(environment.getProperty("spring.datasource.url"));
+        String databaseUrl = environment.getProperty("database_url");
+        if(StringUtils.isBlank(databaseUrl)){
+            databaseUrl = environment.getProperty("spring.datasource.url");
+        }
+        dataSource.setUrl(databaseUrl);
         dataSource.setUsername("postgres");
         dataSource.setPassword(environment.getProperty("database_password"));
         return dataSource;
