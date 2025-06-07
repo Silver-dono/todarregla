@@ -7,6 +7,8 @@ import com.openai.models.responses.Response;
 import com.openai.models.responses.ResponseCreateParams;
 import com.openai.models.responses.ResponseOutputItem;
 import com.openai.models.responses.ResponseOutputMessage;
+import org.apache.commons.lang3.StringUtils;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.Instant;
@@ -21,7 +23,12 @@ public class MailMessageExtractor {
     private final static String DATE_FORMAT_NO_TIME = "yyyy-MM-dd";
 
     static {
-        openAIClient = OpenAIOkHttpClient.fromEnv();
+        String openAIKey = System.getenv("OPENAI_API_KEY");
+        if(StringUtils.isBlank(openAIKey)){
+            openAIClient = OpenAIOkHttpClient.fromEnv();
+        } else {
+            openAIClient = OpenAIOkHttpClient.builder().apiKey(openAIKey).build();
+        }
     }
 
     public static Date extractDateFromMessage(String mailBody) throws ParseException {
